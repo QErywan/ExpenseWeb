@@ -1,5 +1,5 @@
 {% extends "base-auth.html" %}
-
+{% load static %}
 
 {% block content %}
 
@@ -13,13 +13,16 @@
                     <h4>Register for an account</h4>
                 </div>
                 <form action="" method="post">
-
+                    
                     <div class="form-group py-2">
-                        <input type="email" name="email" id="emailField" class="form-control form-control-sm" placeholder="Email">
+                        <input type="text" name="username" id="usernameField" class="form-control form-control-sm" placeholder="Username">
+                    </div>
+                    <div class="invalid-feedback" style="display:none">
+
                     </div>
 
                     <div class="form-group py-2">
-                        <input type="text" name="usernam" id="usernameField" class="form-control form-control-sm" placeholder="Username">
+                        <input type="email" name="email" id="emailField" class="form-control form-control-sm" placeholder="Email">
                     </div>
 
                     <div class="form-group" py-2>
@@ -27,8 +30,8 @@
                         <small class="float-end py-3">SHOW</small>
                     </div>
                     
+                    <input type="submit" value="Register" class="btn btn-block btn-primary ">
                 </form>
-                <input type="submit" value="Register" class="btn btn-block btn-primary ">
             </div>
                
         </div>
@@ -41,4 +44,7 @@
     </div>
     <div class="col-md-4"></div>
 </div>
+
+
+<script src="{% static "js/register.js" %}"></script>
 {% endblock content %}
