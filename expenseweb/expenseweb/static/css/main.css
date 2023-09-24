@@ -70,3 +70,8 @@
 .bd-mode-toggle {
     z-index: 1500;
 }
+
+/* .showPasswordToggle {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+} */
