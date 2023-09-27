@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib import auth
 
 from .utils import account_activation_token
 
@@ -118,9 +119,31 @@ class LoginView(View):
         return render(request, 'authentication/login.html')
     
     def post(self, request):
-        pass
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if username and password:
+
+            user = auth.authenticate(username=username, password=password)
+
+            if user:
+                if user.is_active:
+                    auth.login(request, user)
+                    messages.success(request, 'Welcome, ' + user.username + ' you are now logged in')
+                    return redirect('expenses') 
+                messages.error(request, 'Account is not active, please check your email')
+                return render(request, 'authentication/login.html')
+            messages.error(request, 'Invalid credentials, try again')
+            return render(request, 'authentication/login.html')
+
+
         
-        
+
+class LogoutView(View):
+    def post(self, request):
+        auth.logout(request)
+        messages.success(request, 'You have been logged out')
+        return redirect('login') # ??
 
         
     
