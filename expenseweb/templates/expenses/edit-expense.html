@@ -5,17 +5,22 @@
 
 <div class="container mt-4">
     <div class="row">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{% url "expenses" %}">Expenses</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Add Expenses</li>
-            </ol>
-        </nav>
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url "expenses" %}">Expenses</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Edit Expenses</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-2">
+            <a href="{% url "expense-delete" expense.id %}" class="btn btn-primary btn-sm">Delete</a>
+        </div>
     </div>
 </div>
 <div class="card">
     <div class="card-body">
-        <form action="{% url "add-expenses" %}" method="post">
+        <form action="{% url "expense-edit" expense.id %}" method="post">
             {% csrf_token %}
             {% include "partials/_messages.html" %}
             <div class="form-group">
@@ -29,6 +34,7 @@
             <div class="form-group">
                 <label for="">Category</label>
                 <select name="category" id="" class="form-control">
+                    <option selected value="{{ values.category }}" name="category">{{ values.category }}</option>
                     {% for category in categories %}
                     <option value=""{{ category.name }} name="category">{{ category.name }}</option>
                     {% endfor %}
@@ -39,7 +45,7 @@
                 <input type="date" class="form-control form-control-sm" name="expense-date">
             </div>
             
-            <input type="submit" value="Submit" class="btn btn-primary btn-primary-sm">
+            <input type="submit" value="Save" class="btn btn-primary btn-primary-sm">
         </form>
     </div>
 </div>
